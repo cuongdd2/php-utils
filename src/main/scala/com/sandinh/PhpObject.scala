@@ -1,6 +1,5 @@
 package com.sandinh
 
-
 object PhpObject {
 
   def stringify(o: Object) = new Stringifier().write(o)
