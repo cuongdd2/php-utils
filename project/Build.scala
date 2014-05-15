@@ -2,12 +2,11 @@ import sbt._
 import Keys._
 import sbt.Project.defaultSettings
 
-object PhpUtils extends Build {
-  val baseSettings = defaultSettings ++ Seq(
+object Build extends sbt.Build {
+  val baseSettings = Defaults.coreDefaultSettings ++ Seq(
     scalaVersion := "2.11.0",
     crossScalaVersions := Seq("2.10.4", "2.11.0"),
-    scalacOptions ++= Seq("-feature", "-deprecation"),
-    sbtVersion := "0.13.5-RC3"
+    scalacOptions ++= Seq("-feature", "-deprecation")
   )
 
   lazy val common = Project(
@@ -17,12 +16,7 @@ object PhpUtils extends Build {
       name := "php-utils",
       organization := "com.sandinh",
       version := "1.0.1",
-      resolvers ++= Seq(
-        "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
-      ),
-      libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % "2.1.6" % "test"
-      )
+      libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
     )
   )
 }
