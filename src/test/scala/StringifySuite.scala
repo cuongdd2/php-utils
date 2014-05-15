@@ -1,7 +1,7 @@
 import com.sandinh.PhpObject
 import org.scalatest.FunSuite
 
-class StringifySuite extends FunSuite{
+class StringifySuite extends FunSuite {
 
   test("from-long") {
     val data = 123456789012345L
@@ -86,6 +86,6 @@ class StringifySuite extends FunSuite{
   }
 
 }
-class DummyClass(val var1:String, val var2:Int, val var3:Double) extends Serializable {
+class DummyClass(val var1: String, val var2: Int, val var3: Double) extends Serializable {
 
 }

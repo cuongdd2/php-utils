@@ -1,7 +1,7 @@
 import com.sandinh.PhpObject
 import org.scalatest.FunSuite
 
-class ParserSuite extends FunSuite{
+class ParserSuite extends FunSuite {
 
   test("to-string") {
     val data = "s:3:\"abc\";"
@@ -34,6 +34,5 @@ class ParserSuite extends FunSuite{
     println(result)
     assert(result.isInstanceOf[Map[String, String]])
   }
-
 
 }

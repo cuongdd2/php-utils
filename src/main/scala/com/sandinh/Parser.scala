@@ -64,7 +64,6 @@ class Parser(private val data: String) {
     data.charAt(pos + 2) == '1'
   }
 
-
   private def unserNull(): Null = {
     pos += 2
     null
@@ -104,6 +103,5 @@ class Parser(private val data: String) {
     pos += 1
     (className, map)
   }
-
 
 }
