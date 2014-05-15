@@ -1,35 +1,39 @@
-import java.lang.reflect.Modifier
+package com.sandinh
+
 import scala.collection.mutable.ArrayBuffer
+import java.lang.reflect.Modifier
+import java.nio.charset.Charset
 
 class SerializeException(s: String) extends Exception
 
-class PhpObject {
+class Stringifier {
+  private val charset = Charset.forName("UTF-8")
   private val refs = ArrayBuffer.empty[Any]
 
-  private def write(o: Object): String = {
+  def write(o: Object): String = {
     val buffer = new StringBuffer()
     serObject(o, buffer)
     buffer.toString
   }
 
-  def serObject(o: Any, buffer: StringBuffer, allowReference: Boolean = true) = {
+  private def serObject(o: Any, buffer: StringBuffer, allowReference: Boolean = true) = {
     if (o == null) serNull(buffer)
     else if (allowReference && serReference(o, buffer)) true
     else o match {
-        case s: String => serString(s, buffer)
-        case s: Char => serCharacter(s, buffer)
-        case s: Int => serInteger(s, buffer)
-        case s: Short => serInteger(s.toInt, buffer)
-        case s: Byte => serInteger(s.toInt, buffer)
-        case s: Long => serLong(s, buffer)
-        case s: Double => serDouble(s, buffer)
-        case s: Float => serFloat(s, buffer)
-        case s: Boolean => serBoolean(s, buffer)
-        case s: Array[Any] => serArray(s, buffer)
-        case s: Map[Any, Any] => serMap(s, buffer)
-        case s: Iterable[Any] => serCollection(s, buffer)
-        case s: Serializable => serSerializable(s, buffer)
-        case _ => throw new SerializeException("Unable to ser " + o.getClass.getName)
+      case s: String => serString(s, buffer)
+      case s: Char => serCharacter(s, buffer)
+      case s: Int => serInteger(s, buffer)
+      case s: Short => serInteger(s.toInt, buffer)
+      case s: Byte => serInteger(s.toInt, buffer)
+      case s: Long => serLong(s, buffer)
+      case s: Double => serDouble(s, buffer)
+      case s: Float => serFloat(s, buffer)
+      case s: Boolean => serBoolean(s, buffer)
+      case s: Array[Any] => serArray(s, buffer)
+      case s: Map[Any, Any] => serMap(s, buffer)
+      case s: Iterable[Any] => serCollection(s, buffer)
+      case s: Serializable => serSerializable(s, buffer)
+      case _ => throw new SerializeException("Unable to ser " + o.getClass.getName)
     }
     refs += o
   }
@@ -48,8 +52,8 @@ class PhpObject {
   }
 
   private def serString(string: String, buffer: StringBuffer) {
-    val decoded: String = string
-    buffer.append("s:").append(decoded.length).append(":\"").append(string).append("\";")
+    val decoded: String = decode(string, charset)
+    buffer.append("s:").append(decoded.length).append(":\"").append(decoded).append("\";")
   }
 
   private def serCharacter(value: Char, buffer: StringBuffer) {
@@ -123,7 +127,7 @@ class PhpObject {
   private def serSerializable(o: Serializable, buffer: StringBuffer) {
 
     refs += o
-    var c:Class[_] = o.getClass
+    var c: Class[_] = o.getClass
     val className = c.getSimpleName
     buffer.append("O:").append(className.length()).append(":\"").append(className).append("\":")
 
@@ -150,12 +154,3 @@ class PhpObject {
   }
 }
 
-object PhpObject {
-  
-  def stringify(o:Object) = new PhpObject().write(o)
-  def stringify(o:Int) = new PhpObject().write(o.asInstanceOf[Integer])
-  def stringify(o:Double) = new PhpObject().write(o.asInstanceOf[java.lang.Double])
-  def stringify(o:Float) = new PhpObject().write(o.asInstanceOf[java.lang.Float])
-  def stringify(o:Char) = new PhpObject().write(o.asInstanceOf[Character])
-
-}

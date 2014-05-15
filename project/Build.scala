@@ -5,6 +5,7 @@ import sbt.Project.defaultSettings
 object PhpUtils extends Build {
   val baseSettings = defaultSettings ++ Seq(
     scalaVersion := "2.11.0",
+    crossScalaVersions := Seq("2.10.4", "2.11.0"),
     scalacOptions ++= Seq("-feature", "-deprecation"),
     sbtVersion := "0.13.5-RC3"
   )
@@ -15,7 +16,7 @@ object PhpUtils extends Build {
     settings = baseSettings ++ Seq(
       name := "php-utils",
       organization := "com.sandinh",
-      version := "1.0.0",
+      version := "1.0.1",
       resolvers ++= Seq(
         "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
       ),

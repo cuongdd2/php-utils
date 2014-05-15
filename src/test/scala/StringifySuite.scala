@@ -1,3 +1,4 @@
+import com.sandinh.PhpObject
 import org.scalatest.FunSuite
 
 class StringifySuite extends FunSuite{
@@ -44,6 +45,12 @@ class StringifySuite extends FunSuite{
     val result = PhpObject.stringify(text)
     println(result)
     assert(result contains "s:" + text.length + ":\"" + text + "\"")
+  }
+  test("from-string-unicode") {
+    val text = "Tiếng Việt"
+    val result = PhpObject.stringify(text)
+    println(result)
+    assert(result contains "s:")
   }
   test("from-char") {
     val text = "a".charAt(0)
