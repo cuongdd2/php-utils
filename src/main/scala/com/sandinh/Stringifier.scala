@@ -20,20 +20,20 @@ class Stringifier {
     if (o == null) serNull(buffer)
     else if (allowReference && serReference(o, buffer)) true
     else o match {
-      case s: String        => serString(s, buffer)
-      case s: Char          => serCharacter(s, buffer)
-      case s: Int           => serInteger(s, buffer)
-      case s: Short         => serInteger(s.toInt, buffer)
-      case s: Byte          => serInteger(s.toInt, buffer)
-      case s: Long          => serLong(s, buffer)
-      case s: Double        => serDouble(s, buffer)
-      case s: Float         => serFloat(s, buffer)
-      case s: Boolean       => serBoolean(s, buffer)
-      case s: Array[Any]    => serArray(s, buffer)
-      case s: Map[Any, Any] => serMap(s, buffer)
-      case s: Iterable[Any] => serCollection(s, buffer)
-      case s: Serializable  => serSerializable(s, buffer)
-      case _                => throw new SerializeException("Unable to ser " + o.getClass.getName)
+      case s: String       => serString(s, buffer)
+      case s: Char         => serCharacter(s, buffer)
+      case s: Int          => serInteger(s, buffer)
+      case s: Short        => serInteger(s.toInt, buffer)
+      case s: Byte         => serInteger(s.toInt, buffer)
+      case s: Long         => serLong(s, buffer)
+      case s: Double       => serDouble(s, buffer)
+      case s: Float        => serFloat(s, buffer)
+      case s: Boolean      => serBoolean(s, buffer)
+      case s: Array[_]     => serArray(s, buffer)
+      case s: Map[_, _]    => serMap(s, buffer)
+      case s: Iterable[_]  => serCollection(s, buffer)
+      case s: Serializable => serSerializable(s, buffer)
+      case _               => throw new SerializeException("Unable to ser " + o.getClass.getName)
     }
     refs += o
   }
@@ -86,7 +86,7 @@ class Stringifier {
     buffer.append("b:").append(if (value) 1 else 0).append(";")
   }
 
-  private def serCollection(collection: Iterable[Any], buffer: StringBuffer) {
+  private def serCollection(collection: Iterable[_], buffer: StringBuffer) {
     refs += collection
     buffer.append("a:").append(collection.size).append(":{")
     val iterator = collection.iterator
@@ -100,7 +100,7 @@ class Stringifier {
     buffer.append('}')
   }
 
-  private def serArray(array: Array[Any], buffer: StringBuffer) {
+  private def serArray(array: Array[_], buffer: StringBuffer) {
     refs += array
     val size = array.length
     buffer.append("a:").append(size).append(":{")
@@ -112,7 +112,7 @@ class Stringifier {
     buffer.append('}')
   }
 
-  private def serMap(map: Map[Any, Any], buffer: StringBuffer) {
+  private def serMap(map: Map[_, _], buffer: StringBuffer) {
     refs += map
     buffer.append("a:").append(map.size).append(":{")
     map.foreach(e => {
