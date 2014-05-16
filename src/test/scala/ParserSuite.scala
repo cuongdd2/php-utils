@@ -1,38 +1,50 @@
-import com.sandinh.PhpObject
+import com.sandinh.PhpObject.parse
 import org.scalatest.FunSuite
 
 class ParserSuite extends FunSuite {
-
-  test("to-string") {
+  test("to string") {
     val data = "s:3:\"abc\";"
-    val result = PhpObject.parse(data)
-    println(result)
-    assert(result.isInstanceOf[String])
+    parse(data) match {
+      case "abc" => //ok
+      case _     => fail()
+    }
   }
-  test("to-int") {
-    val data = "i:123456;"
-    val result = PhpObject.parse(data)
-    println(result)
-    assert(result.isInstanceOf[Int])
+  test("to int") {
+    parse("i:123456;") match {
+      case d: Int if d == 123456 => //ok
+      case _                     => fail()
+    }
   }
-  test("to-double") {
-    val data = "d:123.456;"
-    val result = PhpObject.parse(data)
-    println(result)
-    assert(result.isInstanceOf[Double])
+  test("to long") {
+    parse("i:123456789012345;") match {
+      case d: Long if d == 123456789012345L => //ok
+      case _                                => fail()
+    }
   }
-  test("to-array") {
-    val data = "a:2:{i:0;s:2:\"e1\";i:1;s:2:\"e2\";}"
-    val result = PhpObject.parse(data)
-    println(result.asInstanceOf[Map[Int, String]](0))
-    println(result)
-    assert(result.isInstanceOf[Map[Int, String]])
+  test("to double") {
+    parse("d:123.456;") match {
+      case d: Double if d == 123.456 => //ok
+      case _                         => fail()
+    }
   }
-  test("to-array2") {
-    val data = "a:2:{s:2:\"k1\";s:6:\"value1\";s:2:\"k2\";s:14:\"Tiáº¿ng Viá»\u0087t\";}"
-    val result = PhpObject.parse(data)
-    println(result)
-    assert(result.isInstanceOf[Map[String, String]])
+  test("to double 2") {
+    parse("d:123456789012345;") match {
+      case d: Double if d == 123456789012345D => //ok
+      case _                                  => fail()
+    }
   }
-
+  test("to array") {
+    val data = """a:2:{i:0;s:2:"e1";i:1;s:2:"e2";}"""
+    parse(data) match {
+      case result: Map[_, _] => assert(result.sameElements(Map(0 -> "e1", 1 -> "e2")))
+      case _                 => fail()
+    }
+  }
+  test("to array 2") {
+    val data = """a:2:{s:2:"k1";s:6:"value1";s:2:"k2";s:14:"Tiếng Việt";}"""
+    parse(data) match {
+      case result: Map[_, _] => assert(result.sameElements(Map("k1" -> "value1", "k2" -> "Tiếng Việt")))
+      case _                 => fail()
+    }
+  }
 }

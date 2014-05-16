@@ -22,9 +22,7 @@ class Parser(private val data: String) {
       case 'a' => return unserArray()
       case 'R' => unserReference()
       case 'O' => unserObject()
-      case _ =>
-        throw new UnserializeException("Unable to unserialize unknown type ")
-        null
+      case _   => throw new UnserializeException("Unable to unserialize unknown type ")
     }
     refs += result
     result
