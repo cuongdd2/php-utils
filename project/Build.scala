@@ -1,6 +1,5 @@
 import sbt._
 import Keys._
-import sbt.Project.defaultSettings
 
 object Build extends sbt.Build {
   val baseSettings = Defaults.coreDefaultSettings ++ Seq(
@@ -16,7 +15,8 @@ object Build extends sbt.Build {
       name := "php-utils",
       organization := "com.sandinh",
       version := "1.0.2",
-      libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
+      libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test",
+      parallelExecution in Test := false
     )
   )
 }
