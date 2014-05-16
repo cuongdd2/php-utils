@@ -1,6 +1,7 @@
 package cross
 
-import com.sandinh.PhpObject.parse
+import com.sandinh.phputils.PhpObject
+import PhpObject.parse
 import java.io.{BufferedInputStream, FileInputStream}
 import org.scalatest.FunSuite
 import sys.process._

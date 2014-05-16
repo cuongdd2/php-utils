@@ -15,7 +15,7 @@ object Build extends sbt.Build {
     settings = baseSettings ++ Seq(
       name := "php-utils",
       organization := "com.sandinh",
-      version := "1.0.1",
+      version := "1.0.2",
       libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
     )
   )

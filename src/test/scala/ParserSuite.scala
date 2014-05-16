@@ -1,4 +1,5 @@
-import com.sandinh.PhpObject.parse
+import com.sandinh.phputils.PhpObject
+import PhpObject.parse
 import org.scalatest.FunSuite
 
 class ParserSuite extends FunSuite {

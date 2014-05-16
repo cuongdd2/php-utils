@@ -1,6 +1,7 @@
 package cross
 
-import com.sandinh.PhpObject.stringify
+import com.sandinh.phputils.PhpObject
+import PhpObject.stringify
 import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets.UTF_8
 import org.scalatest.FunSuite

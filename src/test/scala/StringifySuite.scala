@@ -1,10 +1,13 @@
-import com.sandinh.PhpObject.stringify
+import com.sandinh.phputils.PhpObject
+import PhpObject.stringify
 import org.scalatest.{FlatSpec, Matchers}
 
 class StringifySuite extends FlatSpec with Matchers {
   it should "from long, int, short, byte" in {
-    //PHP will serialize this to `i`, not `d`!!!
-    stringify(123456789012345L) shouldBe "i:123456789012345;"
+    //PHP 64bit will serialize long to `i`
+    stringify(123456789012345L, php64bit = true) shouldBe "i:123456789012345;"
+    //PHP 32bit will serialize long to `d`
+    stringify(123456789012345L, php64bit = false) shouldBe "d:123456789012345;"
     stringify(123) shouldBe "i:123;"
     stringify(123.toShort) shouldBe "i:123;"
     stringify(123.toByte) shouldBe "i:123;"
@@ -38,7 +41,7 @@ class StringifySuite extends FlatSpec with Matchers {
 
   it should "from object" in {
     stringify(new DummyClass("abc", 123, 0.999)) shouldBe
-      """O:10:"cross.DummyClass":3:{s:4:"var1";s:3:"abc";s:4:"var2";i:123;s:4:"var3";d:0.999;}"""
+      """O:10:"DummyClass":3:{s:4:"var1";s:3:"abc";s:4:"var2";i:123;s:4:"var3";d:0.999;}"""
   }
 }
 

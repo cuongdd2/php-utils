@@ -1,8 +1,8 @@
-package com
+package com.sandinh
 
 import java.nio.charset.Charset
 
-package object sandinh {
+package object phputils {
 
   private val DefaultCharset = Charset.forName("ISO-8859-1")
 
