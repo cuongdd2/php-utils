@@ -105,6 +105,7 @@ private class Parser(str: String) {
     val className = data.substring(startName + 2, endName)
     val startField = data.indexOf(":", endName + 2)
     val fieldCount = data.substring(endName + 2, startField).toInt
+    pos = startField + 2
     var map = Map.empty[String, Any]
     refs += map
     for (i <- 0 until fieldCount) {

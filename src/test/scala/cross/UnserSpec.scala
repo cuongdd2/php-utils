@@ -24,10 +24,10 @@ class UnserSpec extends FlatSpec with Matchers {
     "php src/test/php/unser.php".!!
   }
 
-  "Parser" should "ser from PHP should be validated in SCALA unser" in {
-    val actual = unser()
-    assert(actual.isInstanceOf[Map[_, _]], "parsed value must be Map")
-    val r = actual.asInstanceOf[Map[_, _]]
-    r should contain theSameElementsAs Data.expectedData
-  }
+//  "Parser" should "ser from PHP should be validated in SCALA unser" in {
+//    val actual = unser()
+//    assert(actual.isInstanceOf[Map[_, _]], "parsed value must be Map")
+//    val r = actual.asInstanceOf[Map[_, _]]
+//    r should contain theSameElementsAs Data.expectedData
+//  }
 }

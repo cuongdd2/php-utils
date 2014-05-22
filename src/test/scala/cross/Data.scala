@@ -12,11 +12,11 @@ class DummyClass {
 }
 
 object Data {
-  val dataFile = "/tmp/php-ser.data"
+  val dataFile = "php-ser.data"
   val dummy = new DummyClass
 
   val data = Array(
-    123456789012345L,
+    123456789012345D,
     123456789012345D,
     123.456,
     123.4567F,

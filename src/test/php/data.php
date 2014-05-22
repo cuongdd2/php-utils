@@ -1,6 +1,6 @@
 <?php
 namespace cross;
-$dataFile = "/tmp/php-ser.data";
+$dataFile = "php-ser.data";
 
 class DummyClass {
     var $var1 = "đĐe";
