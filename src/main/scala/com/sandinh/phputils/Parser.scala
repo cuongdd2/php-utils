@@ -6,7 +6,7 @@ import scala.util.Try
 
 private class UnserializeException(s: String) extends Exception
 
-private class Parser(str:String) {
+private class Parser(str: String) {
 
   private var data = ""
   private var pos: Int = 0
@@ -18,9 +18,9 @@ private class Parser(str:String) {
     data = decode(str, charset)
     val result = data.charAt(pos) match {
       case 's' => parseString()
-      case 'i' => 
+      case 'i' =>
         val currentPos = pos
-        Try(parseInteger()).getOrElse{
+        Try(parseInteger()).getOrElse {
           pos = currentPos
           parseLong()
         }
@@ -57,7 +57,7 @@ private class Parser(str:String) {
     pos = end + 1
     result
   }
-  
+
   private def parseDouble(): Double = {
     val end = data.indexOf(';', pos + 2)
     val result = data.substring(pos + 2, end).toDouble
