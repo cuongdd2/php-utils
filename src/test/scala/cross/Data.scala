@@ -1,6 +1,6 @@
 package cross
 
-class DummyClass extends Serializable{
+class DummyClass extends Serializable {
   val var1 = "đĐe"
   val var2 = 123
   val var3 = 0.999
@@ -40,17 +40,16 @@ object Data {
   )
 
   val expectedData = Map(
-    "0" -> data(0),
-    "1" -> data(1),
-    "2" -> data(2),
-    "3" -> 123.4567, //java Float ser then unser => Double
-    "4" -> data(4),
-    "5" -> Map("0" -> "Cường", "1" -> "Đỗ", "2" -> "Đức", "3" -> "Gia", "4" -> "Bảo"), //Array ser then unser => Map[String,_]
-    "6" -> Map("0" -> "Cường", "1" -> "Đỗ", "2" -> "Đức", "3" -> "Gia", "4" -> "Bảo"), //Map[Int,_] --> Map[String,_]
-    "7" -> Map("0" -> 123, "1" -> "abc"),
-    "8" -> Map("0" -> 123, "1" -> "abc"),
-    "9" -> data(9),
-    "10" -> data(10),
-    "11" -> dummyExpected
+    0 -> data(0),
+    1 -> data(1),
+    2 -> data(2),
+    3 -> 123.4567, //java Float ser then unser => Double
+    4 -> data(4),
+    5 -> Map(0 -> "Cường", 1 -> "Đỗ", 2 -> "Đức", 3 -> "Gia", 4 -> "Bảo"), //Array ser then unser => Map[String,_]
+    6 -> Map(0 -> "Cường", 1 -> "Đỗ", 2 -> "Đức", 3 -> "Gia", 4 -> "Bảo"), //Map[Int,_] --> Map[String,_]
+    7 -> Map(0 -> 123, 1 -> "abc"),
+    8 -> Map(0 -> 123, 1 -> "abc"),
+    9 -> data(9),
+    10 -> data(10)
   )
 }
