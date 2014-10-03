@@ -73,8 +73,9 @@ private class Parser(str: String) {
   }
 
   private def parseBoolean(): Boolean = {
+    val result = data.charAt(pos + 2) == '1'
     pos += 4
-    data.charAt(pos + 2) == '1'
+    result
   }
 
   private def parseNull(): Null = {
